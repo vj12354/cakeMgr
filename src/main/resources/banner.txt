@@ -1,0 +1,7 @@
+
+############
+Spring Boot Application to demo RESTful api
+[POST, GET, PUT, DELETE]
+
+URL: http://localhost:8080/api/cakes
+############
