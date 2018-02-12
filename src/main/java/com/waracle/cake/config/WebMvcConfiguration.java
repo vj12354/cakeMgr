@@ -1,5 +1,4 @@
 package com.waracle.cake.config;
-import io.tracee.binding.springmvc.TraceeInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -9,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import io.tracee.binding.springmvc.TraceeInterceptor;
 
 @Configuration
 /**
@@ -62,5 +63,10 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
         registry.addInterceptor(new TraceeInterceptor());
+    }
+    
+    @Bean
+    public CakeInitialiser cakeInitialiser() {
+    		return new CakeInitialiser();
     }
 }

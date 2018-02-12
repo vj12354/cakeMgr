@@ -1,8 +1,10 @@
 package com.waracle.cake.json;
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
+import com.waracle.cake.config.CakeInitialiser;
 import com.waracle.cake.model.Cake;
 import com.waracle.cake.service.api.CakeService;
 
@@ -35,11 +38,12 @@ import io.springlets.data.domain.GlobalSearch;
  *
  */
 public class CakesCollectionJsonController {
+	
+	private Logger log = Logger.getLogger(CakesCollectionJsonController.class);
 
-	/**
-     * TODO Auto-generated attribute documentation
-     * 
-     */
+	@Autowired
+	private CakeInitialiser cakeInitialiser;
+	
     private CakeService cakeService;
 
 	/**
@@ -171,4 +175,13 @@ public class CakesCollectionJsonController {
         
         return ResponseEntity.ok().build();
     }
+
+	@PostConstruct
+	public void setup() {
+		try {
+			cakeInitialiser.setup();
+		} catch (Exception e) {
+			log.error("Error while baking cakes: " + e.getMessage());
+		}
+	}
 }
